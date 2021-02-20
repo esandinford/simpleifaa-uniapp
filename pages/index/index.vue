@@ -31,6 +31,7 @@ export default {
 				ret => {
 					var retJson = JSON.parse(ret);
 					if (retJson.code == '0') {
+						console.log("123");
 						//服务器验证(为了保护APPCODE, 此段逻辑建议放在服务器端)
 						uni.request({
 							url: 'http://simpleifaa.market.alicloudapi.com/ifaa/sAuth',
@@ -43,10 +44,24 @@ export default {
 								'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
 							},
 							success: res => {
-								console.log('网络请求成功' + JSON.stringify(res.data));
-								_this.msg+="获取结果成功"+ JSON.stringify(res.data);
+								/* 返回值说明
+								*     0000 成功
+								*     2998  具体的异常描述
+								*     2999  系统异常描述
+								*     1999  服务异常描述
+								*/
+							    console.log(JSON.stringify(res.data));
+								if(res.data.code=="0000"){
+									console.log('网络请求成功' + JSON.stringify(res.data));
+									_this.msg+="获取结果成功"+ JSON.stringify(res.data);
+								}
+							},
+							fail:res=>{
+								_this.msg="请求失败:"+JSON.stringify(res);
 							}
 						});
+					}else{
+						_this.msg="code:"+retJson.code+"msg:"+retJson.msg;
 					}
 				}
 			);
