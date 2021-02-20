@@ -10,7 +10,7 @@
 <script>
 const SimpleIFAAModule = uni.requireNativePlugin('Esand-SimpleIfaaModule');
 //阿里云市场appcode(从阿里云市场获取)
-const APPCODE="2294b96c1dce4aedafa39bfa3fc5708c";
+const APPCODE="替换为你的appcode";
 export default {
 	data() {
 		return {
